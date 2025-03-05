@@ -40,13 +40,13 @@ class LRUCache {
     }
 
     public void put(int key, int value) {
-        if(map.containsKey(key)){
+        if(map.containsKey(key)){//已经存在的key，更新value，并放到链表头
             Node node = map.get(key);
             node.value = value;
             removeNode(node);
             putFront(node,dummy);
-        }else{
-            if(map.size() == capacity){
+        }else{//不存在，要新建节点
+            if(map.size() == capacity){//容量已满，先删掉末尾，再插入新节点
                 Node node = dummy.prev;
                 removeNode(node);
                 map.remove(node.key);
@@ -57,6 +57,7 @@ class LRUCache {
         }
     }
 
+    //双向链表的remove和putFront功能
     public void putFront(Node node,Node dummy){
         node.next = dummy.next;
         node.prev = dummy;
