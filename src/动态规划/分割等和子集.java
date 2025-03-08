@@ -39,10 +39,10 @@ public class 分割等和子集 {
         //从i=1开始填充
         for (int i = 1; i < len; i++) {
             for (int j = 0; j <=target; j++) {
-                if(nums[i]>j){
+                if(nums[i]>j){//nums[i]自己已经超标，只能不选nums[i]
                     dp[i][j]= dp[i-1][j];
                 }else{
-                    //不选nums[i]和选nums[i]
+                    //不选nums[i]或者选nums[i]
                     dp[i][j] = dp[i-1][j] || dp[i-1][j-nums[i]];
                 }
             }
