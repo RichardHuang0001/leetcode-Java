@@ -31,27 +31,37 @@ public class 找到字符串中所有字母异位词438 {
         int lenS = s.length();
         int [] setP = new int[26];
         int [] setS = new int[26];
+
+        // 统计字符串 p 中每个字符出现的次数
         for (char ch :p.toCharArray()){
             setP[(int)ch-(int)'a']+=1;
         }
+
+        // 初始化滑动窗口的左右指针
         int l=0,r=-1;
-        while(r-l+1<lenP){
-            r++;
-            char chR = s.charAt(r);
-            setS[chR-'a']+=1;
-        }
+
+        // 使用滑动窗口遍历字符串 s
         while(r<lenS){
-            if(Arrays.equals(setP,setS)){
-                ans.add(l);
+            // 如果窗口大小小于 p 的长度，右指针右移
+            if(r-l+1<lenP){
+                r++;
+                if(r<lenS) {
+                    // 统计窗口内字符出现的次数
+                    char chR = s.charAt(r);
+                    setS[chR - 'a'] += 1;
+                }
             }
-            r++;
-            if(r<lenS) {
-                char chR = s.charAt(r);
-                setS[chR - 'a'] += 1;
+            // 如果窗口大小等于 p 的长度，检查窗口内字符是否与 p 的字符出现次数相同
+            else {
+                if(Arrays.equals(setP,setS)){
+                    // 如果相同，将左指针加入结果列表
+                    ans.add(l);
+                }
+                // 移动左指针，并更新窗口内字符出现的次数
+                char chL = s.charAt(l);
+                setS[chL-'a']-=1;
+                l++;
             }
-            char chL = s.charAt(l);
-            setS[chL-'a']-=1;
-            l++;
         }
         return ans;
     }

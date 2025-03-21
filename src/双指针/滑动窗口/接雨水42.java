@@ -16,12 +16,15 @@ public class 接雨水42 {
         leftMax[0] = height[0];
         rightMax[len-1] = height[len-1];
         for(int i = 1;i<len;i++){
+            // 计算每个位置左边的最大值
             leftMax[i]= Math.max(leftMax[i-1],height[i]);
         }
         for(int i = len-2;i >=0;i--){
+            // 计算每个位置右边的最大值
             rightMax[i] = Math.max(rightMax[i+1],height[i]);
         }
         for (int i = 0; i < len; i++) {
+            // 计算每个位置的水量并累加
             volume += Math.min(leftMax[i], rightMax[i]) - height[i];
         }
 
@@ -35,10 +38,10 @@ public class 接雨水42 {
         int rightMax = 0;
         int volume = 0;
         while(left <= right){
-            //更新两个最大值
+            // 更新两个最大值
             leftMax = Math.max(leftMax,height[left]);
             rightMax = Math.max(rightMax,height[right]);
-            //基于两个最大值，计算当前位置的水量并累加
+            // 基于两个最大值，计算当前位置的水量并累加
             if(leftMax < rightMax){
                 volume += leftMax - height[left];
                 left++;
@@ -51,3 +54,4 @@ public class 接雨水42 {
         return volume;
     }
 }
+
